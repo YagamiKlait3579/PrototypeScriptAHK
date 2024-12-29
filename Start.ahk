@@ -1,4 +1,16 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+﻿#include %A_Scriptdir%\libs\BaseLibs\Header.ahk
+
+;;;;;;;;;; Gui ;;;;;;;;;;
+    PlaceForTheText := "Ширина самого длинного текста"
+    ;--------------------------------------------------
+    UpdateDGP({"Transparency" : gTransparency, "Blur" : gBlur, "Scale" : gInterfaceScale})
+    GuiInGame("Start", "MainInterface")
+        Gui, MainInterface: Add, Text, xm ym +Center vT1, %PlaceForTheText%
+        GuiControl, MainInterface: Text, T1, Test GUI in Game
+        Gui, MainInterface: Add, Text, xm y+m +Center vT2, %PlaceForTheText%
+    GuiInGame("End", "MainInterface", {"ratio" : [GuiPositionX,GuiPositionY]})
+    fSuspendGui("On", "MainInterface")
+    if DebugGui
+        fDebugGui("Create", MainInterface)
+    
+Return
