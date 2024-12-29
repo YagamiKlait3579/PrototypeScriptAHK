@@ -58,3 +58,8 @@
     #include %A_Scriptdir%\libs\BaseLibs\TrayMenu.ahk
     #include %A_Scriptdir%\libs\BaseLibs\GuiInGame.ahk
     #include %A_Scriptdir%\libs\BaseLibs\ControlFunctions.ahk
+    #include %A_Scriptdir%\libs\BaseLibs\TimeControl.ahk
+    #include %A_Scriptdir%\libs\BaseLibs\InputDevice.ahk
+    #include *i %A_Scriptdir%\libs\BaseLibs\FindText.ahk
+    ;--------------------------------------------------
+    #include *i %A_Scriptdir%\libs\AdditionalFunctions.ahk
