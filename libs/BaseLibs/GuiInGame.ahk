@@ -49,15 +49,15 @@
         global
         ; DGP = Default GUI Parameters (Парамеры по умолчанию для всех GUI)
         local A_Loop, A_key
-        local A_DGP := {"Font"         : "Sylfaen"     ; Стиль шрифта [MS Sans Serif, Sylfaen]
-                       ,"FontColor"    : "White"       ; Цвет шрифта
-                       ,"FontSize"     : 11            ; Размер шрифта
-                       ,"Margin"       : [0.5, 0.125]  ; Стандартный отступ (По умолчанию в AHK [x = 1.25, y = 0.75])
-                       ,"BorderColor"  : "Aqua"        ; Цвет рамки
-                       ,"BorderSize"   : 1             ; Толщина рамки
-                       ,"Transparency" : 100           ; Прозрачность, от 0 (прозрачно) до 255 (непрозрачно)
-                       ,"Blur"         : 255           ; Размытие фона, от 0 (без размытия) до 255 (полное размытие)
-                       ,"Scale"        : 100         } ; Масштаб интерфейса (В процентах)
+        local A_DGP := {"Font"         : "MS Sans Serif" ; Стиль шрифта [MS Sans Serif, Sylfaen]
+                       ,"FontColor"    : "White"         ; Цвет шрифта
+                       ,"FontSize"     : 11              ; Размер шрифта
+                       ,"Margin"       : [0.5, 0.125]    ; Стандартный отступ (По умолчанию в AHK [x = 1.25, y = 0.75])
+                       ,"BorderColor"  : "Aqua"          ; Цвет рамки
+                       ,"BorderSize"   : 1               ; Толщина рамки
+                       ,"Transparency" : 100             ; Прозрачность, от 0 (прозрачно) до 255 (непрозрачно)
+                       ,"Blur"         : 255             ; Размытие фона, от 0 (без размытия) до 255 (полное размытие)
+                       ,"Scale"        : 100           } ; Масштаб интерфейса (В процентах)
         if (params = "SetDefault") || (params = "Default") {
             DGP := A_DGP
             Return
