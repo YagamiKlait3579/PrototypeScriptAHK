@@ -55,6 +55,7 @@
     #include *i %A_Scriptdir%\libs\AdvancedSettings.ahk
     #include *i %A_Scriptdir%AdvancedSettings.ahk
     ;--------------------------------------------------
+    #include %A_Scriptdir%\libs\BaseLibs\WorkingWithFiles.ahk
     #include %A_Scriptdir%\libs\BaseLibs\TrayMenu.ahk
     #include %A_Scriptdir%\libs\BaseLibs\GuiInGame.ahk
     #include %A_Scriptdir%\libs\BaseLibs\ControlFunctions.ahk

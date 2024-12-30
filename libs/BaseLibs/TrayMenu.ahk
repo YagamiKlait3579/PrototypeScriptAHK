@@ -1,6 +1,6 @@
 ﻿;;;;;;;;;; Loading ;;;;;;;;;;
-    CheckingFiles("Base_ICO", "Settings", "AdvancedSettings")
-
+    CheckingFiles("Base_ICO", "Settings.ahk", "AdvancedSettings.ahk")
+    
 ;;;;;;;;;; Tray ;;;;;;;;;;
     Menu, Tray, Tip, Game Helper
     Menu, Tray, icon, %FilePath_Base_ICO%,1, 1
@@ -59,36 +59,4 @@
             Run, %GetProgramPath% %FilePath_AdvancedSettings%
         else
             Run, Notepad.exe %FilePath_AdvancedSettings%   
-    }
-
-;;;;;;;;;; Functions ;;;;;;;;;;
-    CheckingFiles(params*) {
-        global
-        local A_Loop, A_key, A_FilePath
-        for A_Loop, A_key in params {
-            A_FilePath := ""
-            Loop, Files, % A_ScriptDir "\" A_key "*.*", R 
-            {
-                if A_LoopFileFullPath {
-                    FilePath_%A_key% := A_LoopFileFullPath
-                    Break
-                }
-            }
-        }
-    }
-
-    ProgramSearch(params*) {
-        ; ("Microsoft Visual Studio Code", "Notepad++")
-        RegKey := "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"    
-        for A_Loop, A_key in params
-            Loop, Reg, %RegKey%, k 
-            {            
-                RegRead, ProgramName , %RegKey%\%A_LoopRegName%, DisplayName
-                StringReplace, A_String, ProgramName, %A_key%
-                if !ErrorLevel {
-                    RegRead, FilePath , %RegKey%\%A_LoopRegName%, DisplayIcon
-                    Return FilePath
-                }
-            }
-        Return 0
     }

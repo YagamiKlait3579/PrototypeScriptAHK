@@ -21,8 +21,8 @@
     fSuspendGui("On", "MainInterface")
     if DebugGui
         fDebugGui("Create", MainInterface)
-    ;if HideTheInterface
-    ;    SetTimer, ShowHideGui , 250, -1
+    if HideTheInterface
+        SetTimer, ShowHideGui , 250, -1
 Return
 
 ;;;;;;;;;; Scripts ;;;;;;;;;;
