@@ -6,13 +6,15 @@
     Menu, Tray, icon, %FilePath_Base_ICO%,1, 1
 
     Menu, Tray, NoStandard
-    Menu, Tray, Add, Setting, OpenScriptSetting
-    Menu, Tray, icon, Setting, %FilePath_Base_ICO%,9
-    Menu, Tray, Default, Setting
+    Menu, Tray, Add, Settings, OpenScriptSettings
+    Menu, Tray, icon, Settings, %FilePath_Base_ICO%,9
 
     Menu, Tray, Add, Advanced settings, OpenAdvancedSettings
     Menu, Tray, icon, Advanced settings, %FilePath_Base_ICO%, 10
 
+    Menu, Tray, Add, Edit script, EditTheRunningScript
+    Menu, Tray, icon, Edit script, %FilePath_Base_ICO%, 14
+    
     Menu, Tray, Add
     Menu, Tray, Add, Discord, OpenDiscord
     Menu, Tray, icon, Discord, %FilePath_Base_ICO%,16
@@ -30,6 +32,12 @@
     Menu, Tray, Add, Stop (exit), StopScript 
     Menu, Tray, icon, Stop (exit), %FilePath_Base_ICO%,3
     ;--------------------------------------------------
+    if !FileExist(FilePath_Settings) {
+        Menu, Tray, Default, Edit script
+        Menu, Tray, Disable, Settings
+    } Else
+        Menu, Tray, Default, Settings
+
     if !FileExist(FilePath_AdvancedSettings) || !EditAdvancedSettings
         Menu, Tray, Disable, Advanced settings
 
@@ -42,14 +50,23 @@
         Run, https://github.com/YagamiKlait3579
     }
 
-;;;;;;;;;; Open Setting ;;;;;;;;;;
-    OpenScriptSetting() {
+;;;;;;;;;; Open Settings ;;;;;;;;;;
+    EditTheRunningScript() {
         global
-        local GetProgramPath, A_FilePath := FilePath_Settings ? FilePath_Settings : A_ScriptFullPath
+        local GetProgramPath
         if GetProgramPath := ProgramSearch("Visual Studio Code", "Notepad++")
-            Run, %GetProgramPath% %A_FilePath%
+            Run, %GetProgramPath% %A_ScriptFullPath%
         else
-            Run, Notepad.exe %A_FilePath%     
+            Run, Notepad.exe %A_ScriptFullPath%     
+    }
+
+    OpenScriptSettings() {
+        global
+        local GetProgramPath
+        if GetProgramPath := ProgramSearch("Visual Studio Code", "Notepad++")
+            Run, %GetProgramPath% %FilePath_Settings%
+        else
+            Run, Notepad.exe %FilePath_Settings%     
     }
 
     OpenAdvancedSettings() {

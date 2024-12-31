@@ -28,17 +28,19 @@
             и возвращает путь до исполняемого файла первой найденной программы в списке.
             Если ни одной программы не найдено, функция возвращает 0.
         */
-        RegKey := "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"    
+        RegKeys := ["HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"
+                   ,"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\"] 
         for A_Loop, A_key in params
-            Loop, Reg, %RegKey%, k 
-            {            
-                RegRead, ProgramName , %RegKey%\%A_LoopRegName%, DisplayName
-                StringReplace, A_String, ProgramName, %A_key%
-                if !ErrorLevel {
-                    RegRead, FilePath , %RegKey%\%A_LoopRegName%, DisplayIcon
-                    Return FilePath
+            for B_Loop, RegKey in RegKeys
+                Loop, Reg, %RegKey%, k 
+                {            
+                    RegRead, ProgramName , %RegKey%\%A_LoopRegName%, DisplayName
+                    StringReplace, A_String, ProgramName, %A_key%
+                    if !ErrorLevel {
+                        RegRead, FilePath , %RegKey%\%A_LoopRegName%, DisplayIcon
+                        Return FilePath
+                    }
                 }
-            }
         Return 0
     }
 
