@@ -15,7 +15,7 @@
         */
         global
         local A_Loop, A_key, filePattern, varName, LastFile
-        SearchDir := "" ? A_WorkingDir : SearchDir
+        SearchDir := !SearchDir ? A_WorkingDir : SearchDir
         for A_Loop, A_key in params {
             filePattern := InStr(A_key, ".") ? A_key : A_key "*.*"
             varName := InStr(A_key, ".") ? SubStr(A_key, 1, InStr(A_key, ".") - 1) : A_key
