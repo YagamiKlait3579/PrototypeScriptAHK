@@ -1,25 +1,34 @@
-﻿;;;;;;;;;; Search ;;;;;;;;;;
-    CheckingFiles(params*) {
+﻿;;;;;;;;;; Loading ;;;;;;;;;;
+    DllCall("LoadLibrary", "Str", CheckingFiles(,"gdiplus.dll"))
+
+;;;;;;;;;; Search ;;;;;;;;;;
+    CheckingFiles(SearchDir = "", params*) {
         /* 
-            CheckingFiles ищет файлы указанные в params по порядку,
-            и возвращает переменную в виде FilePath_ИмяФайла в которой находится путь до файла с именем и расширением самого файла.
+            CheckingFiles ищет файлы указанные в params по порядку в рабочей директории,
+            и возвращает переменную в виде FP_ИмяФайла в которой находится путь до файла с именем и расширением самого файла.
             Если имя файла указано без расширения то будет найдем первый попавшийся файл.
             Поиск происходит в директории запуска исполняемого файла скрипта и во всех вложенных папках.
-            Если файл не найден, переменная FilePath_ИмяФайла не создается.
+            Если файл не найден, переменная FP_ИмяФайла не создается.
+            Сама функция также возвращает путь с именем и расширением фала последнего найденного файла.
+            Если не было найдено ни одного файла, возвращается 0.
+            FP = File path
         */
         global
-        local A_Loop, A_key, filePattern, varName
+        local A_Loop, A_key, filePattern, varName, LastFile
+        SearchDir := "" ? A_WorkingDir : SearchDir
         for A_Loop, A_key in params {
             filePattern := InStr(A_key, ".") ? A_key : A_key "*.*"
             varName := InStr(A_key, ".") ? SubStr(A_key, 1, InStr(A_key, ".") - 1) : A_key
-            Loop, Files, % A_ScriptDir "\" filePattern, R 
+            Loop, Files, % SearchDir "\" filePattern, R 
             {
                 if A_LoopFileFullPath { 
-                    FilePath_%varName% := A_LoopFileFullPath
+                    FP_%varName% := A_LoopFileFullPath
+                    LastFile := A_LoopFileFullPath
                     Break
                 }
             }
         }
+        Return LastFile ? LastFile : 0
     }
 
     ProgramSearch(params*) {
@@ -71,4 +80,28 @@
             loop, parse, AllVar, `n 
                 RegExMatch(A_LoopField, "(.*?)=(.*)", OutputVar), %OutputVar1% := OutputVar2
         }
+    }
+
+    ReadImages(DllPath, ResourceName, ResourceType = "PNG") {
+        ;DllCall("LoadLibrary", "Str", "Gdiplus.dll")
+        pToken := Gdip_Startup()
+        
+        hModule := DllCall("LoadLibraryEx", "Str", DllPath, "UInt", 0, "UInt", 2)
+        hRes := DllCall("FindResource", "Ptr", hModule, "Str", ResourceName, "Str", ResourceType)
+        hResData := DllCall("LoadResource", "Ptr", hModule, "Ptr", hRes)
+        pResData := DllCall("LockResource", "Ptr", hResData)
+        ResSize := DllCall("SizeofResource", "Ptr", hModule, "Ptr", hRes)
+    
+        TempImagePath := A_Temp "\TempImage.png"
+        FileDelete, %TempImagePath%
+        hFile := DllCall("CreateFile", "Str", TempImagePath, "UInt", 0x40000000, "UInt", 0, "UInt", 0, "UInt", 2, "UInt", 0, "UInt", 0, "Ptr")
+        DllCall("WriteFile", "Ptr", hFile, "Ptr", pResData, "UInt", ResSize, "UInt*", BytesWritten, "UInt", 0)
+        DllCall("CloseHandle", "Ptr", hFile)
+    
+        pBitmap := Gdip_CreateBitmapFromFile(TempImagePath)
+    
+        DllCall("FreeLibrary", "Ptr", hModule)
+        FileDelete, %TempImagePath%
+
+        Return Gdip_CreateHBITMAPFromBitmap(pBitmap)
     }

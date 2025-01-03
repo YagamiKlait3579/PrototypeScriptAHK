@@ -47,8 +47,8 @@
     full_command_line := ""
 
 ;;;;;;;;;; Include ;;;;;;;;;;
-    #include %A_Scriptdir%\libs\
-    SetWorkingDir %A_ScriptDir%\libs\
+    ;#include %A_Scriptdir%\libs\
+    ;SetWorkingDir %A_ScriptDir%\libs\
     ;--------------------------------------------------
     #include *i %A_Scriptdir%\Settings.ahk
     #include *i %A_Scriptdir%\libs\Settings.ahk
@@ -61,6 +61,8 @@
     #include %A_Scriptdir%\libs\BaseLibs\ControlFunctions.ahk
     #include %A_Scriptdir%\libs\BaseLibs\TimeControl.ahk
     #include %A_Scriptdir%\libs\BaseLibs\InputDevice.ahk
-    #include *i %A_Scriptdir%\libs\BaseLibs\FindText.ahk
+    ;--------------------------------------------------
+    #include %A_Scriptdir%\libs\AuxiliaryScripts\FindText.ahk
+    #include %A_Scriptdir%\libs\AuxiliaryScripts\Gdip.ahk
     ;--------------------------------------------------
     #include *i %A_Scriptdir%\libs\AdditionalFunctions.ahk
