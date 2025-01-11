@@ -380,8 +380,8 @@
                 Gui, DebugGui: Margin, % DGP.Margin.1, % DGP.Margin.2
                 Gui, DebugGui: Font, % " s"DGP.FontSize " c" DGP.FontColor " q3", % DGP.Font
                 Loop, %param2% {
-                    Gui, DebugGui: Add, Text, % " xm y+m w" DG_W2 " +c"(params.color1 = "" ? "ff7d19" : params.color1) " +Right vDG_T1_L"A_Index, ------
-                    Gui, DebugGui: Add, Text, % " x+m w" DG_W2 " +c"(params.color2 = "" ? "Fuchsia" : params.color2) " +Center +Border vDG_T2_L"A_Index, ------
+                    Gui, DebugGui: Add, Text, % " xm y+m w" DG_W2 " +c"(params.color1 = "" ? "ff7d19" : params.color1) " +Right vDG_T1_L"A_Index, ------------
+                    Gui, DebugGui: Add, Text, % " x+m w" DG_W2 " +c"(params.color2 = "" ? "Fuchsia" : params.color2) " +Center +Border vDG_T2_L"A_Index, ------------
                 }
                 Gui, DebugGui: Show, x0 y0 NoActivate
                 GroupAdd, ShowHide_GuiGroup, ahk_id %DebugGui%
