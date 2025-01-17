@@ -55,7 +55,6 @@
     global gVK, gSC
 
     CheckingFiles(,"Base_ICO")
-    DllCall("LoadLibrary", "Str", CheckingFiles(,"gdiplus.dll"))
 
 ;;;;;;;;;; Tray Menu ;;;;;;;;;;
     Menu, Tray, Tip, Key info
@@ -103,6 +102,9 @@
     Gui, KeyInfo: Font, % " s"FontSize " q3", MS Sans Serif
     Gui, KeyInfo: Show, % " w"(A_ScreenWidth/3) " h"(A_ScreenWidth/3/16*9), Key Info
     WinGetPos, KI_X, KI_Y, KI_W, KI_H, ahk_id %KeyInfo%
+
+    Gui, KeyInfo: Add, Picture, % "x+m y"KI_H*0.01 " w"KI_W*0.17 " h-1 +Border +BackgroundTrans gOpenDiscord", % "HBITMAP:" ReadImages(CheckingFiles(,"Base_Images.dll"), "DiscordLogo")
+    Gui, KeyInfo: Add, Picture, % "x+m y"KI_H*0.01 " w"KI_W*0.19 " h-1 +Border +BackgroundTrans gOpenGitHub", % "HBITMAP:" ReadImages(CheckingFiles(,"Base_Images.dll"), "GitHubLogo")
 
     Gui, KeyInfo: Add, Text, % " x"KI_W*0.05 " y"KI_H*0.175 " +Section +BackgroundTrans"
     Gui, KeyInfo: Add, Text, % " xs y+ w" KI_W*0.39 " +Center +Border cLime hwndMainText vMainText", Нажмите клавишу

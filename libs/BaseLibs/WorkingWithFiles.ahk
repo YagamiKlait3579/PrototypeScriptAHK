@@ -92,7 +92,7 @@
         pResData := DllCall("LockResource", "Ptr", hResData)
         ResSize := DllCall("SizeofResource", "Ptr", hModule, "Ptr", hRes)
     
-        TempImagePath := A_Temp "\TempImage.png"
+        TempImagePath := A_Temp "\TempImage_" ResourceName ".png"
         FileDelete, %TempImagePath%
         hFile := DllCall("CreateFile", "Str", TempImagePath, "UInt", 0x40000000, "UInt", 0, "UInt", 0, "UInt", 2, "UInt", 0, "UInt", 0, "Ptr")
         DllCall("WriteFile", "Ptr", hFile, "Ptr", pResData, "UInt", ResSize, "UInt*", BytesWritten, "UInt", 0)
