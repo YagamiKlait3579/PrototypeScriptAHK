@@ -64,7 +64,7 @@
         }
         for A_Loop, A_key in ["Font", "FontColor","BorderColor","BorderSize","Transparency","Blur","Scale"]
             DGP[A_key] := params[A_key] ? params[A_key] : (DGP[A_key] ? DGP[A_key] : A_DGP[A_key])
-        if params.FontSize
+        if params.FontSize || params.Scale
             DGP.FontSize := Round(((params.FontSize * gFontScaling) * gDPI) * (0.01 * DGP.Scale))
         else if !DGP.FontSize
             DGP.FontSize := Round(((A_DGP.FontSize * gFontScaling) * gDPI) * (0.01 * DGP.Scale))
